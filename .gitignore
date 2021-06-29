@@ -1,0 +1,8 @@
+build/
+tags
+*.elf
+*.d
+*.o
+*.bin
+*.log
+.vscode/*.log
