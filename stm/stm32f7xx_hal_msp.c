@@ -88,7 +88,7 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 
 }
 
-/* *** Moved from main.c to keep all stm generated code together *** */
+/* *** NOTE garyfm: Moved from main.c to keep all stm generated code together *** */
 
 /**
   * @brief System Clock Configuration
