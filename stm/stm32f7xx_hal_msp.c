@@ -25,6 +25,7 @@
 #include "stm32f7xx_hal_msp.h"
 #include "stm32f7xx_hal_uart.h"
 #include "stm32f7xx_hal_rcc.h"
+#include "retarget.h"
 
 
 void HAL_MspInit(void)
@@ -168,6 +169,7 @@ void MX_USART3_UART_Init(UART_HandleTypeDef* huart3)
     Error_Handler();
   }
 
+  RetargetInit(huart3);
 }
 
 /**
