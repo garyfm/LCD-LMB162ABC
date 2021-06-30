@@ -9,21 +9,21 @@
  * 
  * The below example is for a STM Nucleo-144 F722ZE with the following PIN connections:
  *
- * +-------+--------+---------+
- * |  LCD  | Nucleo |  STM    |
- * |-------+--------+---------|
- * |   4   |   D0   |   PG9   |
- * |   5   |   D1   |   PG14  |
- * |   6   |   D2   |   PF15  |
- * |   7   |   D3   |   PE13  |
- * |   8   |   D4   |   PF14  |
- * |   9   |   D5   |   PE11  |
- * |   10  |   D6   |   PE9   |
- * |   11  |   D7   |   PF13  |
- * |   12  |   D8   |   PF12  |
- * |   13  |   D9   |   PD15  |
- * |   14  |   D10  |   PD14  |
- * +-------+--------+---------+ 
+ * +------------+------------------+
+ * |    LCD     | Nucleo |  STM    |
+ * |------------+------------------|
+ * |   RS  (4)  |   D0   |   PG9   |
+ * |   RW  (5)  |   D1   |   PG14  |
+ * |   E   (6)  |   D2   |   PF15  |
+ * |   DB0 (7)  |   D3   |   PE13  |
+ * |   DB1 (8)  |   D4   |   PF14  |
+ * |   DB2 (9)  |   D5   |   PE11  |
+ * |   DB3 (10) |   D6   |   PE9   |
+ * |   DB4 (11) |   D7   |   PF13  |
+ * |   DB5 (12) |   D8   |   PF12  |
+ * |   DB6 (13) |   D9   |   PD15  |
+ * |   DB7 (14) |   D10  |   PD14  |
+ * +------------+--------+---------+
  **/
 
 #include "lmb162.h"
@@ -67,72 +67,79 @@ void lmb162_gpio_init(void) {
     HAL_GPIO_WritePin(GPIOG, GPIO_PIN_9 | GPIO_PIN_14, GPIO_PIN_RESET);
 }
 
-void lmb162_write_pin_4(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_rs(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_9, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_9, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_5(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_rw(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_6(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_e(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_15, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_15, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_7(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db0(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_13, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_8(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db1(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_14, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_14, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_9(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db2(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_10(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db3(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_11(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db4(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_13, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_13, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_12(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db5(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, GPIO_PIN_SET);
 }
 
-void lmb162_write_pin_13(LMB162_PIN_STATE pin_state) {
+void lmb162_write_pin_db6(LMB162_PIN_STATE pin_state) {
     if (pin_state == LMB162_PIN_LOW)
         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
     else if (pin_state == LMB162_PIN_HIGH)
         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+}
+
+void lmb162_write_pin_db7(LMB162_PIN_STATE pin_state) {
+    if (pin_state == LMB162_PIN_LOW)
+        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+    else if (pin_state == LMB162_PIN_HIGH)
+        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
 }
