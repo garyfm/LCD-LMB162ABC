@@ -43,6 +43,6 @@ void Error_Handler(void);
 
 void SystemClock_Config(void);
 void MX_GPIO_Init(void);
-void MX_USART3_UART_Init(UART_HandleTypeDef* huart);
+void MX_USART3_UART_Init(void);
 
 #endif /* __STM32FXX_HAL_MSP_H__ */

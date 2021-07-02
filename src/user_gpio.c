@@ -26,13 +26,27 @@
  * +------------+--------+---------+
  **/
 
+#include <stdbool.h>
+
 #include "lmb162.h"
 
 /* User GPIO Libaries */
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
+#include "stm32f7xx_hal_tim.h"
 
-void lmb162_gpio_init(void) {
+static TIM_HandleTypeDef htim3;
+
+void lmb162_delay_us(uint16_t us) {
+
+    __HAL_TIM_SET_COUNTER(&htim3, 0);
+   
+    HAL_TIM_Base_Start(&htim3);
+    while( __HAL_TIM_GET_COUNTER(&htim3) <= us) {}
+    HAL_TIM_Base_Stop(&htim3);
+}
+
+void lmb162_bsp_init(void) {
     GPIO_InitTypeDef lcd_gpio_init = {0};
 
     lcd_gpio_init.Mode = GPIO_MODE_OUTPUT_PP;
@@ -43,28 +57,36 @@ void lmb162_gpio_init(void) {
     __HAL_RCC_GPIOD_CLK_ENABLE();
     lcd_gpio_init.Pin = GPIO_PIN_14 | GPIO_PIN_15;
     HAL_GPIO_Init(GPIOD, &lcd_gpio_init);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_RESET);
 
     // PORTE
     __HAL_RCC_GPIOE_CLK_ENABLE();
     lcd_gpio_init.Pin = GPIO_PIN_9 | GPIO_PIN_11 | GPIO_PIN_13;
     HAL_GPIO_Init(GPIOE, &lcd_gpio_init);
-    
-    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9 | GPIO_PIN_11 | GPIO_PIN_13, GPIO_PIN_RESET);
 
     // PORTF
     __HAL_RCC_GPIOF_CLK_ENABLE();
     lcd_gpio_init.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
     HAL_GPIO_Init(GPIOF, &lcd_gpio_init);
 
-    HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15, GPIO_PIN_RESET);
-
     // PORTG
     __HAL_RCC_GPIOG_CLK_ENABLE();
     lcd_gpio_init.Pin = GPIO_PIN_9 | GPIO_PIN_14;
     HAL_GPIO_Init(GPIOG, &lcd_gpio_init);
+
+    // Init Timer for delay
+    uint32_t clk_freq = 1000000;
+    uint16_t period = 0xFFFF;
     
-    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_9 | GPIO_PIN_14, GPIO_PIN_RESET);
+    htim3.Instance = TIM3;
+    htim3.Init.Prescaler = ((SystemCoreClock / 2) / clk_freq) - 1; 
+    htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+    htim3.Init.Period = period - 1;
+    htim3.Init.ClockDivision = 0;
+    htim3.Init.RepetitionCounter = 0;
+    htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+    __HAL_RCC_TIM3_CLK_ENABLE();
+    HAL_TIM_Base_Init(&htim3);
 }
 
 void lmb162_write_pin_rs(LMB162_PIN_STATE pin_state) {
