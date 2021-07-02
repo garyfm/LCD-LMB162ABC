@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "stm32f7xx_hal_msp.h": "c",
+        "lmb162.h": "c",
+        "lcd.h": "c",
+        "stm32f7xx_hal_gpio.h": "c",
+        "stm32f7xx_hal_tim.h": "c"
+    }
+}
