@@ -12,6 +12,9 @@ typedef struct {
 
 /**
   * @brief LCD Initialisation
+  * 
+  * Initialises the LCD Pins and sets the default configuration 
+  * 
   * @param lcd Object
   * @retval None
   */
@@ -19,6 +22,9 @@ void lcd_init(LCD *lcd);
 
 /**
   * @brief LCD Write
+  * 
+  * Write a character to the LCD.
+  * 
   * @param lcd object.
   * @param data Data to be written.
   * @param lenght Length of data.

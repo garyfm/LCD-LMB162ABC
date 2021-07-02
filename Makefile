@@ -38,6 +38,7 @@ BUILD_DIR = build
 LCD_SOURCES = \
 src/lcd/lcd.c \
 src/lcd/lmb162.c \
+src/user_gpio.c \
 
 # C sources
 C_SOURCES =  \
@@ -119,7 +120,7 @@ C_DEFS =  \
 -DSTM32F722xx
 
 # LCD Module Includes
-LCD_INCLUDES = -Isrc/lcd/
+LCD_INCLUDES = -Isrc/lcd
 
 # AS includes
 AS_INCLUDES = 
@@ -168,7 +169,7 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 #######################################
 # list of objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
-OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(LCDC_SOURCES:.c=.o)))
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(LCD_SOURCES:.c=.o)))
 vpath %.c $(sort $(dir $(C_SOURCES))) $(sort $(dir $(LCD_SOURCES)))
 
 
