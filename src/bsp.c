@@ -35,6 +35,9 @@
 #include "stm32f7xx_hal_gpio.h"
 #include "stm32f7xx_hal_tim.h"
 
+#define TIMER_CLK_FREQ (1000000)
+#define TIMER_MAX_PERIOD (0xFFFF)
+
 static TIM_HandleTypeDef htim3;
 
 void lmb162_delay_us(uint16_t us) {
@@ -74,13 +77,10 @@ void lmb162_bsp_init(void) {
     HAL_GPIO_Init(GPIOG, &lcd_gpio_init);
 
     // Init Timer for delay
-    uint32_t clk_freq = 1000000;
-    uint16_t period = 0xFFFF;
-    
     htim3.Instance = TIM3;
-    htim3.Init.Prescaler = ((SystemCoreClock / 2) / clk_freq) - 1; 
+    htim3.Init.Prescaler = ((SystemCoreClock / 2) / TIMER_CLK_FREQ) - 1; 
     htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-    htim3.Init.Period = period - 1;
+    htim3.Init.Period = TIMER_MAX_PERIOD - 1;
     htim3.Init.ClockDivision = 0;
     htim3.Init.RepetitionCounter = 0;
     htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
